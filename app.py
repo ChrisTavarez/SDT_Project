@@ -20,6 +20,9 @@ vehicles['model_year'] = vehicles.groupby('model')['model_year'].transform(lambd
 
 vehicles["model_year"] = vehicles["model_year"].astype(str).str.replace(",", "").astype(float).astype(int)
 
+vehicles['price'] = pd.to_numeric(vehicles['price'], errors='coerce')
+
+
 
 
 
@@ -38,7 +41,7 @@ actual_range = list(range(year_range[0], year_range[1]+1))
 
 vehicles_filtered = vehicles[ (vehicles['model'] == Make_Model) & (vehicles['model_year'].isin(list(actual_range)) )]
 
-vehicles_filtered
+#vehicles_filtered
 
 
 
