@@ -61,4 +61,26 @@ st.plotly_chart(fig_1)
 
 
 
+def age_category(x):
+    if x < 5:
+        return '< 5'
+    elif  5 <= x < 10:
+        return '5-10'
+    elif   10 <= x < 20:
+        return '10-20' 
+    else:
+        return '>20'    
+
+vehicles['age'] = 2024 - vehicles['model_year']
+
+vehicles['age_category'] = vehicles['age'].apply(age_category)
+
+list_for_scatter = ['condition', 'days_listed']
+
+choice_for_scatter = st.selectbox('Price depends on', list_for_scatter)
+
+fig_2 = px.scatter(vehicles, x = 'price', y = choice_for_scatter, color = 'age_category', hover_data = 'model_year')
+fig_2.update_layout(title="<b> Price vs {}</b>".format(choice_for_scatter))
+st.plotly_chart(fig_2)
+
 
