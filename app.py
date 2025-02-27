@@ -77,7 +77,7 @@ vehicles['age_category'] = vehicles['age'].apply(age_category)
 
 list_for_scatter = ['condition', 'days_listed']
 
-choice_for_scatter = st.selectbox('Price depends on', list_for_scatter)
+choice_for_scatter = st.selectbox('Price dependency on', list_for_scatter)
 
 fig_2 = px.scatter(vehicles, x = 'price', y = choice_for_scatter, color = 'age_category', hover_data = 'model_year')
 fig_2.update_layout(title="<b> Price vs {}</b>".format(choice_for_scatter))
