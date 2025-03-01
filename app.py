@@ -11,12 +11,13 @@ st.write('Filter the data below by Car Make & Model')
 
 vehicles = pd.read_csv('vehicles_us.csv')
 
-vehicles['date_posted'] = pd.to_datetime(vehicles['date_posted'])
+vehicles['model_year'] = vehicles['model_year'].fillna(vehicles.groupby('model')['model_year'].transform('median'))
 
-vehicles['bool_column'] = vehicles['is_4wd'].fillna(0).astype(bool)
+vehicles['odometer'] = vehicles['odometer'].fillna(vehicles.groupby('model_year')['odometer'].transform('mean'))
 
-vehicles['model_year'] = vehicles.groupby('model')['model_year'].transform(lambda x: x.fillna(x.mean())) 
+vehicles['cylinders'] = vehicles['cylinders'].fillna(vehicles.groupby('model')['cylinders'].transform('median'))
 
+vehicles['is_4wd'] = vehicles['is_4wd'].fillna(False).astype(bool)
 
 vehicles["model_year"] = vehicles["model_year"].astype(str).str.replace(",", "").astype(float).astype(int)
 
@@ -41,7 +42,7 @@ actual_range = list(range(year_range[0], year_range[1]+1))
 
 vehicles_filtered = vehicles[ (vehicles['model'] == Make_Model) & (vehicles['model_year'].isin(list(actual_range)) )]
 
-#vehicles_filtered
+vehicles_filtered
 
 
 
